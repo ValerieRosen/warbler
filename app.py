@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template, request, flash, redirect, session, g
+from flask import Flask, render_template, request, flash, redirect, session, g, abort
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
@@ -156,7 +156,7 @@ def users_show(user_id):
                 .limit(100)
                 .all())
     likes = [message.id for message in user.likes]
-    return render_template('users/show.html', user=user, messages=messages)
+    return render_template('users/show.html', user=user, messages=messages, likes=likes)
 
 
 @app.route('/users/<int:user_id>/following')
